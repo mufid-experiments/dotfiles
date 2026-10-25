@@ -1,3 +1,9 @@
+# Requirement
+
+- Ruby 4.0.9 via rbenv/rvm
+- Mac M-series
+- macOS 27
+
 # Installing
 
 On a new computer:
