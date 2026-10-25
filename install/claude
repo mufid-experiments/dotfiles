@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "fileutils"
+
+TARGET = File.join(Dir.home, ".claude", "CLAUDE.md")
+CONTENT = "Always read ~/.dotfiles/AGENT_DIRECTIVE.md before running any action.\n"
+
+if File.exist?(TARGET)
+  if File.read(TARGET) == CONTENT
+    puts "#{TARGET} already up to date, skipping."
+    exit
+  end
+
+  backup = "#{TARGET}.#{Time.now.strftime('%Y%m%d%H%M%S')}.bak"
+  FileUtils.cp(TARGET, backup)
+  puts "Backed up #{TARGET} to #{backup}."
+end
+
+FileUtils.mkdir_p(File.dirname(TARGET))
+File.write(TARGET, CONTENT)
+puts "Installed #{TARGET}."
