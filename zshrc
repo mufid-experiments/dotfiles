@@ -1,5 +1,6 @@
 # Aliases
 alias gcmgp='git checkout main; git pull'
+alias ghopenweb='gh pr view --web'
 
 # Worktree helpers (wt-create, wt-delete)
 export PATH="$HOME/.dotfiles/bin:$PATH"
@@ -19,3 +20,4 @@ wt-delete() {
   local main=${${(f)"$(git worktree list --porcelain 2>/dev/null)"}[1]#worktree }
   WT_DELETE_SHELL=1 command wt-delete "$@" && [[ -n $main ]] && cd "$main"
 }
+
