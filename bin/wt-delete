@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "open3"
+
+def git(*args)
+  out, err, status = Open3.capture3("git", *args)
+  abort "git #{args.join(' ')}: #{err.strip}" unless status.success?
+  out.strip
+end
+
+abort "wt-delete takes no arguments." unless ARGV.empty?
+
+_, _, inside = Open3.capture3("git", "rev-parse", "--is-inside-work-tree")
+abort "Not inside a git worktree." unless inside.success?
+
+# A linked worktree has its own git dir; the main worktree's git dir is the common one.
+git_dir = File.expand_path(git("rev-parse", "--git-dir"))
+common_dir = File.expand_path(git("rev-parse", "--git-common-dir"))
+abort "This is the main worktree, not a linked one; refusing to delete it." if git_dir == common_dir
+
+worktree = git("rev-parse", "--show-toplevel")
+main_root = git("worktree", "list", "--porcelain")[/\Aworktree (.+)$/, 1]
+
+# Run from the main worktree, since the current one is about to disappear.
+Dir.chdir(main_root)
+system("git", "worktree", "remove", worktree) or exit 1
+
+puts "Deleted worktree #{worktree}."
+# The zsh wrapper in zshrc sets WT_DELETE_SHELL and does the cd itself.
+puts "Your shell is still in the deleted directory; run: cd #{main_root}" unless ENV["WT_DELETE_SHELL"]

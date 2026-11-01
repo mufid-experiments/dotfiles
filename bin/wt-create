@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "open3"
+
+def git(*args)
+  out, err, status = Open3.capture3("git", *args)
+  abort "git #{args.join(' ')}: #{err.strip}" unless status.success?
+  out.strip
+end
+
+branch = ARGV[0]
+abort "Usage: wt-create <branchname>" if branch.nil? || branch.empty? || ARGV.size != 1
+
+# The first entry of `git worktree list` is always the main worktree, so the
+# name stays the same when this is run from inside a linked worktree.
+main_root = git("worktree", "list", "--porcelain")[/\Aworktree (.+)$/, 1]
+target = File.join(File.dirname(main_root), "#{File.basename(main_root)}-#{branch.tr('/', '-')}")
+abort "#{target} already exists." if File.exist?(target)
+
+_, _, exists = Open3.capture3("git", "show-ref", "--verify", "--quiet", "refs/heads/#{branch}")
+args = exists.success? ? [target, branch] : ["-b", branch, target]
+system("git", "worktree", "add", *args) or exit 1
+
+puts "Created worktree #{target} on branch #{branch}."
