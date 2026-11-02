@@ -3,7 +3,7 @@ alias gcmgp='git checkout main; git pull'
 alias ghopenweb='gh pr view --web'
 
 # Worktree helpers (wt-create, wt-delete)
-export PATH="$HOME/.dotfiles/bin:$PATH"
+export PATH="${MUFID_PERSONAL_DOTFILES_PATH:-$HOME/.dotfiles}/bin:$PATH"
 
 # A script cannot cd the calling shell, so wrap wt-create to enter the new worktree.
 wt-create() {
