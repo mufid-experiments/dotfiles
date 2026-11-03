@@ -1,5 +1,9 @@
 # Aliases
 alias gcmgp='git checkout main; git pull'
+alias gs='git stash'
+alias gsp='git stash pop'
+
+# GH
 alias ghopenweb='gh pr view --web'
 
 # Worktree helpers (wt-create, wt-delete)
