@@ -1,21 +1,22 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-SOURCE = File.expand_path("../zshrc", __dir__)
+# Not relative to this script, so running it from another checkout still points at ~/.dotfiles.
+ZSHRC = File.join(Dir.home, ".dotfiles", "zshrc")
+SOURCE_LINE = 'source "$HOME/.dotfiles/zshrc"'
 TARGET = File.join(Dir.home, ".zshrc")
 BEGIN_MARKER = "# >>> .dotfiles zshrc >>>"
 END_MARKER = "# <<< .dotfiles zshrc <<<"
 INSTALLED_BLOCK = /^#{Regexp.escape(BEGIN_MARKER)}$.*?^#{Regexp.escape(END_MARKER)}$\n?/m
 
+abort "#{ZSHRC} not found; clone this repo to ~/.dotfiles first." unless File.exist?(ZSHRC)
+
+block = "#{BEGIN_MARKER}\n#{SOURCE_LINE}\n#{END_MARKER}\n"
 # Raw bytes, so a non-UTF-8 locale can't make the regex raise on non-ASCII content.
-zshrc = File.binread(SOURCE)
-zshrc += "\n" unless zshrc.end_with?("\n")
-block = "#{BEGIN_MARKER}\n#{zshrc}#{END_MARKER}\n"
 current = File.exist?(TARGET) ? File.binread(TARGET) : ""
 
 updated =
   if current.match?(INSTALLED_BLOCK)
-    # Block form: a replacement string would expand backslash sequences in zshrc.
     current.sub(INSTALLED_BLOCK) { block }
   elsif current.include?(BEGIN_MARKER)
     abort "#{TARGET} has #{BEGIN_MARKER.inspect} without #{END_MARKER.inspect}; fix it by hand."
@@ -26,8 +27,8 @@ updated =
   end
 
 if updated == current
-  puts "zshrc already up to date in #{TARGET}, skipping."
+  puts "#{TARGET} already sources #{ZSHRC}, skipping."
 else
   File.binwrite(TARGET, updated)
-  puts "Installed zshrc into #{TARGET}."
+  puts "#{TARGET} now sources #{ZSHRC}."
 end
