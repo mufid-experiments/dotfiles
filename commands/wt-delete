@@ -1,0 +1,5 @@
+# A script cannot cd the calling shell, so wrap bin/wt-delete to leave the deleted worktree.
+wt-delete() {
+  local main=${${(f)"$(git worktree list --porcelain 2>/dev/null)"}[1]#worktree }
+  WT_DELETE_SHELL=1 command wt-delete "$@" && [[ -n $main ]] && cd "$main"
+}

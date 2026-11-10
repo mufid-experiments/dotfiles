@@ -1,0 +1,1 @@
+alias cddotfiles='cd "${MUFID_PERSONAL_DOTFILES_PATH:-$HOME/.dotfiles}"'
