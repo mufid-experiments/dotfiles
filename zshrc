@@ -6,6 +6,9 @@ alias gsp='git stash pop'
 # GH
 alias ghopenweb='gh pr view --web'
 
+# Dotfiles
+alias cddotfiles='cd "${MUFID_PERSONAL_DOTFILES_PATH:-$HOME/.dotfiles}"'
+
 # Worktree helpers (wt-create, wt-delete)
 export PATH="${MUFID_PERSONAL_DOTFILES_PATH:-$HOME/.dotfiles}/bin:$PATH"
 
