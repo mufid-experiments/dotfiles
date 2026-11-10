@@ -1,0 +1,9 @@
+# A script cannot cd the calling shell, so wrap bin/wt-create to enter the new worktree.
+wt-create() {
+  command wt-create "$@" || return
+  local line dir
+  for line in "${(@f)"$(git worktree list --porcelain)"}"; do
+    [[ $line == "worktree "* ]] && dir=${line#worktree }
+    [[ $line == "branch refs/heads/$1" ]] && cd "$dir" && return
+  done
+}

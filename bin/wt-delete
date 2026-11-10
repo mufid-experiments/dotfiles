@@ -27,5 +27,5 @@ Dir.chdir(main_root)
 system("git", "worktree", "remove", worktree) or exit 1
 
 puts "Deleted worktree #{worktree}."
-# The zsh wrapper in zshrc sets WT_DELETE_SHELL and does the cd itself.
+# The zsh wrapper in commands/wt-delete sets WT_DELETE_SHELL and does the cd itself.
 puts "Your shell is still in the deleted directory; run: cd #{main_root}" unless ENV["WT_DELETE_SHELL"]

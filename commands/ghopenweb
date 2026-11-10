@@ -1,0 +1,2 @@
+# Open the current branch's pull request in the browser.
+alias ghopenweb='gh pr view --web'
