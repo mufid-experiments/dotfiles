@@ -1,7 +1,23 @@
 # Aliases
-alias gcmgp='git checkout main; git pull'
 alias gs='git stash'
 alias gsp='git stash pop'
+
+# Check out and pull main, or master if there is no main (locally or on origin).
+# Older versions of this file made gcmgp an alias, and zsh won't define a function over an alias.
+unalias gcmgp 2>/dev/null
+gcmgp() {
+  git rev-parse --git-dir >/dev/null || return
+  local branch
+  for branch in main master; do
+    if git show-ref --quiet --verify "refs/heads/$branch" ||
+       git show-ref --quiet --verify "refs/remotes/origin/$branch"; then
+      git checkout "$branch" && git pull
+      return
+    fi
+  done
+  print -u2 "gcmgp: no main or master branch"
+  return 1
+}
 
 # GH
 alias ghopenweb='gh pr view --web'
