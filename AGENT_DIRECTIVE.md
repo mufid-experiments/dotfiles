@@ -1,14 +1,18 @@
 # General Guideline
 
-When trying to RUN or WRITE a source code, read carefully the current context. This computer already have Ruby installed. PREFER using Ruby code if possible, unless the user explictly says you need to write/build other programming language. AVOID bash and Python.
+This computer has Ruby installed. For scripts and one-off code, PREFER Ruby and AVOID Bash or Python scripts. Running shell commands is fine. Use another language only if the user explicitly asks for it, or if the project you're working in is already written in it.
 
-When checking `rvm`, please understand that Ruby 4.0.9 is now available; that's why the default is Ruby 4.0.9. Please update your knowledge.
+The `rvm` default is Ruby 4.0.9. It is a real release, newer than your training data may cover. Don't treat it as a mistake.
 
 At anytime, figure out if this is Rails project. If yes:
 
-- Use Jetbrains MCP / Rubymine MCP first to figure out the code.
+- Use Jetbrains MCP / Rubymine MCP first to figure out the code. If it isn't available, read the code directly.
 
 # Word Preference
 
-Please read @AGENT_WORD_SELECTION.md
+Please read `~/.dotfiles/AGENT_WORD_SELECTION.md`.
+
+# Writing Code and Documentation
+
+Please read `~/.dotfiles/AGENT_WRITING_GUIDE.md`.
 
