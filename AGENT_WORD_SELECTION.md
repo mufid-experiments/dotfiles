@@ -36,3 +36,8 @@ Disliked: `seedLegacyUsers`
 Preferred: `backfillLegacyUsers`
 
 OK: `db/seeds.rb`
+
+## Caching-related names
+
+Choose normal name like `get`, `retrieve`, and `put`.
+
