@@ -49,3 +49,15 @@ Choose normal name like `get`, `retrieve`, and `put`.
 Use "model" if means actual model, e.g.: model as in Model-View-Controller, or Large Language Model, or human model/artist.
 
 Use "shape" if means like physical shape, buildin shape, etc.
+
+## Use "simplified" instead of "collapsed" or "folded"
+
+- Disliked: `folded into kyc_center audit log: design, section`
+- Preferred: `simplified into kyc_center audit log: design, section`
+
+Use "collapse" when it actually wants the opposite of "expand". Or when physically collapse (e.g.: building collapse).
+
+Use "folded" when it actually wants to "fold a paper".
+
+
+
