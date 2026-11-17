@@ -41,3 +41,11 @@ OK: `db/seeds.rb`
 
 Choose normal name like `get`, `retrieve`, and `put`.
 
+## Prefer "form" or "format" over shape, and "design" over "model"
+
+Disliked: Row shape (modelled on the PaperTrail versions table)
+Preferred: Row format (designed from PaperTrail versions table
+
+Use "model" if means actual model, e.g.: model as in Model-View-Controller, or Large Language Model, or human model/artist.
+
+
