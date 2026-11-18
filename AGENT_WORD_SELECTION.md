@@ -19,7 +19,7 @@ Keep `settle` for money: payments and trades.
 
 OK: `settlePaymentNow`, `settleTrade`
 
-## `preserve` instead of `hold`
+## `preserve` or `store` instead of `hold`
 
 Use `preserve` when data is kept so it isn't lost. Keep `hold` for money and assets.
 
@@ -27,6 +27,9 @@ Use `preserve` when data is kept so it isn't lost. Keep `hold` for money and ass
 - Preferred: `preserveOriginalPayload`
 
 OK: `holdBalance`, `releaseHold`
+
+- Disliked: `A time context already holds Tenant configs`
+- Preferred: `A time context already store Tenant configs`
 
 ## `backfill` instead of `seed`
 
