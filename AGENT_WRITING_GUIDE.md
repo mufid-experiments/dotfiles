@@ -1,6 +1,10 @@
-# GENERAL WRITING GUIDELINE
+# Writing Guide
 
-When writing code and documentation, please write as short as possible, and as self-explanatory as possible. For example, code can be
+Applies to code, comments, and docs. When responding to the human, write naturally; brevity isn't needed there.
+
+## Short and self-explanatory
+
+Short means fewer lines and fewer comments, not shorter names. A clear name beats a comment.
 
     def pushed
       prepare_data
@@ -8,27 +12,23 @@ When writing code and documentation, please write as short as possible, and as s
       report_to_sentry
     end
 
-and no comment is necessary. When responding to the human, write naturally; you don't need to be brief there. Keep brevity for code and documentation.
+No comment needed: the method names say what happens.
 
-## More example on Comments, Naming, and self-explanation
-
-Make comments minimal and for name make sure it is self-explanatory.
+## Comment the why, not the what
 
 Avoid:
 
     // Execute all pending sending and build the report
     void execute() {
-       if (!canSend()) { executePendingSending(); }
+       if (canSend()) { executePendingSending(); }
        buildReport();
     }
 
 Preferred:
 
     void execute() {
-       executePendingSendingIfApplicable();
+       executePendingSendingIfAllowed();
        buildReport();
     }
 
-Notice that the code is self-explanatory and no comments are necessary for that.
-
-
+Do comment what the code can't say: workarounds, constraints that aren't obvious, links to issues.
